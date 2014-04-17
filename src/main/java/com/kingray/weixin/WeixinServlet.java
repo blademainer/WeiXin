@@ -115,7 +115,7 @@ public class WeixinServlet extends HttpServlet {
                 XiaoIArtificialIntelligent xiaoIArtificialIntelligent = new XiaoIArtificialIntelligent();//使用xiaoi回复
                 String answer = xiaoIArtificialIntelligent.simpleAsk(msg.getFromUserName(), msg.getContent());
                 if (answer != null && !answer.startsWith("主人还没给我设置这类话题的回复")) {
-                    if (answer.startsWith("你的话涉及敏感词汇")) {
+                    if (answer.startsWith("你的话题涉及敏感词汇")) {
                         answer = "哎呀~小心查水表哦~";
                     } else if (answer.startsWith("文明中国")) {
                         answer = "素质一词本是生理学概念，指人的先天生理解剖特点，主要指神经系统、脑的特性及感觉器官和运动器官的特点，素质是心理活动发展的前提，离开这个物质基础谈不上心理发展。各门学科对素质的解释不同，但都有一点是共同的，即素质是以人的生理和心理实际作基础，以其自然属性为基本前提的。也就是说，个体生理的、心理的成熟水平的不同决定着个体素质的差异，因此，对人的素质的理解要以人的身心组织结构及其质量水平为前提。";
