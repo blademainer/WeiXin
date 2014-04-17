@@ -114,7 +114,7 @@ public class WeixinServlet extends HttpServlet {
 
                 XiaoIArtificialIntelligent xiaoIArtificialIntelligent = new XiaoIArtificialIntelligent();//使用xiaoi回复
                 String answer = xiaoIArtificialIntelligent.simpleAsk(msg.getContent());
-                if(answer != null && !answer.startsWith(answer)){
+                if(answer != null && !answer.startsWith("主人还没给我设置这类话题的回复")){
                     Msg4Text rmsg = new Msg4Text();
                     rmsg.setFromUserName(msg.getToUserName());
                     rmsg.setToUserName(msg.getFromUserName());

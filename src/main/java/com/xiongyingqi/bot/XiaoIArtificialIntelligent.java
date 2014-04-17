@@ -175,6 +175,6 @@ public class XiaoIArtificialIntelligent {
     public static void main(String[] args) throws UnsupportedEncodingException {
         //app_key="y601p5UoGtbU", nonce="97576fe76a668ae55818b0b19f376fa29d6c", signature="87dc9c5f8b1b1907837eeb9ae5724fa375ef7d96"
         XiaoIArtificialIntelligent artificialIntelligent = new XiaoIArtificialIntelligent();
-        System.out.println(artificialIntelligent.simpleAsk("你是谁"));
+        System.out.println(artificialIntelligent.simpleAsk("asasf"));
     }
 }
