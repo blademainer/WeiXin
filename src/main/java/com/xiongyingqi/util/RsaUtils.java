@@ -1,8 +1,5 @@
 package com.xiongyingqi.util;
 
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
-
 import javax.crypto.Cipher;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -101,8 +98,7 @@ public class RsaUtils {
         byte[] b = source.getBytes();
         /** 执行加密操作 */
         byte[] b1 = cipher.doFinal(b);
-        BASE64Encoder encoder = new BASE64Encoder();
-        return encoder.encode(b1);
+        return Base64.encodeBytes(b1);
     }
 
     /**
@@ -129,8 +125,9 @@ public class RsaUtils {
         /** 得到Cipher对象对已用公钥加密的数据进行RSA解密 */
         Cipher cipher = Cipher.getInstance(ALGORITHM);
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        BASE64Decoder decoder = new BASE64Decoder();
-        byte[] b1 = decoder.decodeBuffer(cryptograph);
+//        BASE64Decoder decoder = new BASE64Decoder();
+//        byte[] b1 = decoder.decodeBuffer(cryptograph);
+        byte[] b1 = Base64.decode(cryptograph);
 
         /** 执行解密操作 */
         byte[] b = cipher.doFinal(b1);

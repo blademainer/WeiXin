@@ -1187,4 +1187,17 @@ public abstract class StringUtils {
         return arrayToDelimitedString(arr, ",");
     }
 
+    public static String join(Collection<String> strings, String s) {
+        Assert.notEmpty(strings);
+        StringBuilder builder = new StringBuilder();
+        int i = 0;
+        int length = strings.size();
+        for (String string : strings) {
+            builder.append(string);
+            if(i++ < length - 1){
+                builder.append(s);
+            }
+        }
+        return builder.toString();
+    }
 }
