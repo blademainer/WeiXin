@@ -1,5 +1,6 @@
 package com.kingray.weixin;
 
+import com.xiongyingqi.bot.XiaoIArtificialIntelligent;
 import org.marker.weixin.DefaultSession;
 import org.marker.weixin.HandleMessageAdapter;
 import org.marker.weixin.MySecurity;
@@ -94,19 +95,30 @@ public class WeixinServlet extends HttpServlet {
 
             @Override
             public void onTextMsg(Msg4Text msg) {
-                System.out.println("收到微信消息：" + msg.getContent());
-                if ("我是唐小怪".equals(msg.getContent())) {
+//                System.out.println("收到微信消息：" + msg.getContent());
+//                if ("我是唐小怪".equals(msg.getContent())) {
+//                    Msg4Text rmsg = new Msg4Text();
+//                    rmsg.setFromUserName(msg.getToUserName());
+//                    rmsg.setToUserName(msg.getFromUserName());
+//                    rmsg.setContent("你是小乖乖，哈哈!");
+//                    session.callback(rmsg);
+//                    return;
+//                } else if(msg.getContent().startsWith("呵呵")) {
+//                    Msg4Text rmsg = new Msg4Text();
+//                    rmsg.setFromUserName(msg.getToUserName());
+//                    rmsg.setToUserName(msg.getFromUserName());
+//                    rmsg.setContent("呵呵你妹。。。");
+//                    session.callback(rmsg);
+//                    return;
+//                }
+
+                XiaoIArtificialIntelligent xiaoIArtificialIntelligent = new XiaoIArtificialIntelligent();//使用xiaoi回复
+                String answer = xiaoIArtificialIntelligent.simpleAsk(msg.getContent());
+                if(answer != null && !answer.startsWith(answer)){
                     Msg4Text rmsg = new Msg4Text();
                     rmsg.setFromUserName(msg.getToUserName());
                     rmsg.setToUserName(msg.getFromUserName());
-                    rmsg.setContent("你是小乖乖，哈哈!");
-                    session.callback(rmsg);
-                    return;
-                } else if(msg.getContent().startsWith("呵呵")) {
-                    Msg4Text rmsg = new Msg4Text();
-                    rmsg.setFromUserName(msg.getToUserName());
-                    rmsg.setToUserName(msg.getFromUserName());
-                    rmsg.setContent("呵呵你妹。。。");
+                    rmsg.setContent(answer);
                     session.callback(rmsg);
                     return;
                 }
