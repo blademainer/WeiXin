@@ -22,7 +22,7 @@ public class MD5Helper {
 	 *            要加密的内容
 	 * @return 加密后的信息
 	 */
-	private static String encrypt(String message) {
+	public static String encrypt(String message) {
 		return encrypt(message, "UTF-8", false);
 	}
 
@@ -36,7 +36,7 @@ public class MD5Helper {
 	 *            message的编码方式
 	 * @return 加密后的信息
 	 */
-	private static String encrypt(String message, String encode) {
+    public static String encrypt(String message, String encode) {
 		return encrypt(message, encode, false);
 	}
 
@@ -50,7 +50,7 @@ public class MD5Helper {
 	 *            是否转换成大写
 	 * @return 加密后的信息
 	 */
-	private static String encrypt(String message, boolean toUpperCase) {
+    public static String encrypt(String message, boolean toUpperCase) {
 		return encrypt(message, "UTF-8", toUpperCase);
 	}
 
@@ -66,7 +66,7 @@ public class MD5Helper {
 	 *            是否转换成大写
 	 * @return 加密后的信息
 	 */
-	private static String encrypt(String message, String encode, boolean toUpperCase) {
+    public static String encrypt(String message, String encode, boolean toUpperCase) {
 		MessageDigest messageDigest = null;
 
 		try {
@@ -99,7 +99,7 @@ public class MD5Helper {
 
 	public static void main(String[] args) {
 		System.out.println(encrypt("", true));
-		System.out.println(encrypt(""));
+		System.out.println(encrypt("value"));
 	}
 
 }
