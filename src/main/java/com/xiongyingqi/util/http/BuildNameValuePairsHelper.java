@@ -47,7 +47,8 @@ public class BuildNameValuePairsHelper {
         StringBuilder stringBuilder = new StringBuilder();
         List<NameValuePair> nameValuePairs = build(object);
         NameValuePair nameValuePair = null;
-        for (Iterator<NameValuePair> iterator = nameValuePairs.iterator(); iterator.hasNext(); nameValuePair = iterator.next()) {
+        for (Iterator<NameValuePair> iterator = nameValuePairs.iterator(); iterator.hasNext(); ) {
+            nameValuePair = iterator.next();
             String name = nameValuePair.getName();
             String value = nameValuePair.getValue();
             stringBuilder.append(name);

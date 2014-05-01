@@ -7,6 +7,7 @@ import com.kingray.weixin.vo.LoginVo;
 import com.xiongyingqi.util.EntityHelper;
 import com.xiongyingqi.util.FileHelper;
 import com.xiongyingqi.util.MD5Helper;
+import com.xiongyingqi.util.http.BuildNameValuePairsHelper;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -131,7 +132,11 @@ public class WeiXinApi {
      * lang:zh_CN
      */
     public void getContacts(GetContactRequestVo getContactRequestVo) {
-        String url = "https://mp.weixin.qq.com/cgi-bin/contactmanage?t=user/index&pagesize=10&pageidx=0&type=0&token=1560285654&lang=zh_CN";
+        String url = "https://mp.weixin.qq.com/cgi-bin/contactmanage";
+        String nameValues = BuildNameValuePairsHelper.buildOjbectToGet(getContactRequestVo);
+        if(nameValues != null){
+            url += "?" + nameValues;
+        }
         try {
 
 //            URL url = new URL(basePath);
