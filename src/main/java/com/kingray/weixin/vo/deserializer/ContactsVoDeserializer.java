@@ -82,7 +82,6 @@ public class ContactsVoDeserializer extends JsonDeserializer<ContactsVo> {
 
         if (isVerifyOnNode != null) {
             isVerifyOn = Integer.parseInt(isVerifyOnNode.asText().replaceAll("\\\\\\\"", ""));
-            EntityHelper.print(isVerifyOn);
         }
         if (pageIdxNode != null) {
             pageIdx = pageIdxNode.asInt();
@@ -110,13 +109,11 @@ public class ContactsVoDeserializer extends JsonDeserializer<ContactsVo> {
         }
         if (groupsListNode != null) {
             String groupsListString = groupsListNode.toString();
-            EntityHelper.print(groupsListString);
             groupsList = _mapper.get().readValue(groupsListString, new TypeReference<List<ContactGroupVo>>() {
             });
         }
         if (friendsListNode != null) {
             String friendsListString = friendsListNode.toString();
-            EntityHelper.print(friendsListString);
             friendsList = _mapper.get().readValue(friendsListString, new TypeReference<List<ContactVo>>() {
             });
         }
