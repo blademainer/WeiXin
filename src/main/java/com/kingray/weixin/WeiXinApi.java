@@ -133,7 +133,7 @@ public class WeiXinApi {
      */
     public void getContacts(GetContactRequestVo getContactRequestVo) {
         String url = "https://mp.weixin.qq.com/cgi-bin/contactmanage";
-        String nameValues = BuildNameValuePairsHelper.buildOjbectToGet(getContactRequestVo);
+        String nameValues = BuildNameValuePairsHelper.buildObjectToGet(getContactRequestVo);
         if(nameValues != null){
             url += "?" + nameValues;
         }
@@ -157,7 +157,6 @@ public class WeiXinApi {
 
             CloseableHttpResponse response = closeableHttpClient.execute(httpGet);
 
-            Header[] headers = response.getAllHeaders();
 //            for (Header header : headers) {
 //                EntityHelper.print(header);
 //            }

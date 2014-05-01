@@ -39,7 +39,7 @@ public class BuildNameValuePairsHelper {
         return nameValuePairs;
     }
 
-    public static String buildOjbectToGet(Object object) {
+    public static String buildObjectToGet(Object object) {
         if (object == null) {
             return null;
         }
