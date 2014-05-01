@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>微信公众平台</title>
+    <script type="text/javascript">    var mp = {time: {begin: (+new Date())}};
+    var page_all_dom_load_id = 23521, page_all_dom_load_key = 9;
+    var page_all_onload_id = 23521, page_all_onload_key = 10;
+    var page_all_js_script_id = 23521, page_all_js_script_key = 11;
+    var page_all_ava_id = 23521, page_all_ava_key = 12;
+    var report_ports = [];
+    wx_save_report = function (id, key, time) {
+        report_ports.push(id + "_" + key + "=" + time);
+    };
+    wx_report = function () {
+        if (report_ports.length == 8) {
+            if (Math.random() < 1) {//采样
+                var _img = new Image(1, 1);
+                _img.src = "/misc/jsreport?type=avg&r=" + Math.random() + "&" + report_ports.join("&") + "&" + page_dom_load_id + "_" + page_dom_load_key + "|" + page_js_script_id + "_" + page_js_script_key + "|" + page_ava_id + "_" + page_ava_key + "=" + (script_begin - mp.time.domLoaded);
+            }
+        }
+    };
+    wx_main = function (mod) {
+        var script_end = (+(new Date()));
+        console.log('Script Exec Time : %s ms'.sprintf(script_end - script_begin));
+        if (typeof page_js_script_id != "undefined" && typeof page_js_script_key != "undefined" && typeof page_ava_id != "undefined" && typeof page_ava_key != "undefined") {
+            wx_save_report(page_js_script_id, page_js_script_key, script_end - script_begin);
+            wx_save_report(page_all_js_script_id, page_all_js_script_key, script_end - script_begin);
+            wx_save_report(page_ava_id, page_ava_key, script_end - mp.time.begin);
+            wx_save_report(page_all_ava_id, page_all_ava_key, script_end - mp.time.begin);
+            wx_report();
+        }
+    };</script>
+    <link href="https://res.wx.qq.com/mpres/htmledition/images/favicon1ccaec.ico" rel="Shortcut Icon">
+    <link rel="stylesheet" type="text/css"
+          href="https://res.wx.qq.com/mpres/htmledition/style/base/layout_head1cd26d.css"/>
+    <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/mpres/htmledition/style/base/base1d628e.css"/>
+    <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/mpres/htmledition/style/base/lib1cd20f.css"/>
+    <link rel="stylesheet" href="https://res.wx.qq.com/mpres/htmledition/style/xss/page/page_user1cf320.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://res.wx.qq.com/c/=/mpres/htmledition/style/xss/ui/emoji1cd26d.css,/mpres/htmledition/style/biz_web/widget/dropdown1cd20f.css,/mpres/htmledition/style/xss/ui/rich_buddy1cd20f.css,/mpres/htmledition/style/xss/ui/pagination1cd20f.css"/>
+</head>
+<body class="zh_CN">
+<div class="head" id="header">
+    <div class="head_box">
+        <div class="inner wrp"><h1 class="logo"><a href="/" title="微信公众平台"></a></h1>
+
+            <div class="account">
+                <div class="account_meta account_info"><a
+                        href="/cgi-bin/settingpage?t=setting/index&action=index&token=1560285654&lang=zh_CN"
+                        class="nickname">金瑞通</a> <label class="type icon_subscribe_label">订阅号</label> <a
+                        href="/cgi-bin/settingpage?t=setting/index&action=index&token=1560285654&lang=zh_CN"><img
+                        src="/misc/getheadimg?fakeid=3097198628&token=1560285654&lang=zh_CN" class="avatar"></a></div>
+                <div id="accountArea" class="account_meta account_inbox"><a
+                        href="/cgi-bin/frame?t=notification/index_frame&lang=zh_CN&token=1560285654"
+                        class="account_inbox_switch"> <i class="icon_common inbox">通知</i>&nbsp;
+                </a></div>
+                <div class="account_meta account_logout"><a id="logout"
+                                                            href="/cgi-bin/logout?t=wxm-logout&lang=zh_CN&token=1560285654">退出</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="body" class="body page_user">
+<div id="js_container_box" class="container_box side_l">
+<div class="col_side">
+<div class="menu_box" id="menuBar"></div>
+<script type="text/javascript">    function _report(type, msg) {
+    var _img = new Image(1, 1);
+    _img.src = "/misc/jslog?1=1" + "&content=" + encodeURIComponent(msg) + "&id=" + type + "&level=error";
+}
+(function () {
+    try {
+        var cookies = {};
+        cookies.stringify = function (obj) {
+            var res = [];
+            for (var key in obj) {
+                res.push(key + "=" + obj[key]);
+            }
+            return res.join(",");
+        };
+        cookies.parse = function (str) {
+            var arr = str.split('|'), obj = {};
+            for (var i = 0; i < arr.length; ++i) {
+                var val = arr[i], kv = val.split(":"), k = kv[0], v = kv[1].split(",");
+                obj[k] = obj[k] || {};
+                for (var j = 0; j < v.length; ++j) {
+                    var tmp = v[j].split("=");
+                    obj[k][tmp[0]] = tmp[1];
+                }
+            }
+            return obj;
+        };
+        cookies.set = function (key, value, days, param) {
+            days = days || 30;
+            var exp = new Date();
+            exp.setTime(exp.getTime() + days * 24 * 60 * 60 * 1000);
+            if (!!param) {
+                var res = [];
+                $.each(param, function (key, value) {
+                    res.push(";" + key + "=" + value);
+                });
+                param = res.join("");
+            } else {
+                param = "";
+            }
+            var tmp = "test cookie";
+            document.cookie = key + "=" + encodeURIComponent(value || "") + ";expires=" + exp && exp.toGMTString() + param;
+        };
+        cookies.get = function (_asName) {
+            var _oRegExp = (new RegExp(["(^|;|\\s+)" , (_asName).replace(/([\^\.\[\$\(\)\|\*\+\?\{\\])/ig, "\\$1"), "=([^;]*);?"].join("")));
+            if (_oRegExp.test(document.cookie)) {                    //某些畸形浏览器，decode可能会出错
+                try {
+                    return decodeURIComponent(RegExp["$2"]);
+                } catch (e) {
+                    return RegExp["$2"];
+                }
+            }
+        };
+        window.Cookies = cookies;
+    } catch (e) {
+        _report(3, '[fakeid=3097198628] [script] [url=' + location.href + '] [useragent=' + window.navigator.userAgent + '] [src=cookie error] [exception=' + e + ']');
+    }
+})();
+(function () {
+    try {
+        var menuData = {                "function": {                    "name": '功能', "sub": {                        "masssend": {name: "群发功能", url: ["/cgi-bin/masssendpage?t=mass/send", "/cgi-bin/frame?t=mass/statement_frame"]}, "tmplmsg": {name: "模板消息", url: "/advanced/tmplmsg?action=list&t=tmplmsg/list"}, "advanced": {name: "高级功能", url: "/advanced/advanced?action=index&t=advanced/index"}, "business": {name: "商户功能", url: ["/merchant/business?t=business/overview&action=overview", "/merchant/business?t=business/index&action=index"]}, "devicefunc": {name: "设备功能", url: "/device/getdeviceinfo?action=modify&t=device/setting"}                    }                }, "manage": {                    "name": '管理', "sub": {                        "message": {name: "消息管理", url: "/cgi-bin/message?t=message/list&count=20&day=7"}, "contact": {name: "用户管理", url: "/cgi-bin/contactmanage?t=user/index&pagesize=10&pageidx=0&type=0"}, "material": {name: "素材管理", url: ["/cgi-bin/appmsg?begin=0&count=10&t=media/appmsg_list&type=10&action=list", "/cgi-bin/appmsg?begin=0&count=10&t=media/appmsg_list&type=11&action=list"]}                    }                }, "service": {                    "name": '服务', "sub": {                        "shop": {name: "服务中心", url: "/merchant/store?action=index&t=service/index"}, "order": {name: "我的订单", url: "/merchant/order?action=index&t=service/order"}, "myservice": {name: "我的服务", url: "/merchant/myservice?action=index&t=service/my_service"}                    }, "isNew": true                }, "statistics": {                    "name": '统计', "sub": {                        "user": {name: "用户分析", url: "/misc/pluginloginpage?action=stat_user_summary&pluginid=luopan&t=statistics/index"}, "appmsg": {name: "图文分析", url: "/misc/pluginloginpage?action=stat_article_detail&pluginid=luopan&t=statistics/index"}, "message": {name: "消息分析", url: "/misc/pluginloginpage?action=stat_message&pluginid=luopan&t=statistics/index"}, "interface": {name: "接口分析", url: "/misc/pluginloginpage?action=stat_interface&pluginid=luopan&t=statistics/index"}                    }                }, "setting": {                    "name": '设置', "sub": {                        "account": {name: "帐号信息", url: "/cgi-bin/settingpage?t=setting/index&action=index"}, "assistant": {name: "公众号助手", url: "/misc/assistant?t=setting/mphelper&action=mphelper"}, "development": {name: "开发配置", url: "development?t=setting/dev"}, "safe": {name: "安全中心", url: "/cgi-bin/verifyukliststatus?action=view&t=setting/safe-index"}                    }                }, "store": {                    "name": '商铺', "sub": {                        "overview": {name: "店铺概况", url: "/merchant/merchantstat?t=shop/overview&action=getoverview"}, "addgoods": {name: "添加商品", url: "/merchant/goods?type=11&t=shop/precreate", openew: true}, "goods": {name: "商品管理", url: "/merchant/goods?type=1&t=shop/list&offset=0&count=20"}, "shelf": {name: "货架管理", url: "/merchant/shelf?status=0&action=get_shelflist&t=shop/myshelf&offset=0&count=5"}, "productorder": {name: "订单管理", url: "/merchant/productorder?action=getlist&t=shop/order_list&last_days=30&count=10&offset=0"}, "delivery": {name: "运费模板", url: "/merchant/delivery?action=getlist&t=shop/delivery_list"}, "rights": {name: "维权仲裁", url: "/merchant/shop_rights?t=business/rights_list&action=batchgetpayfeedback&flag=1"}, "imagebase": {name: "图片库", url: "/merchant/goodsimage?action=getimage&t=shop/shop_img&count=20&offset=0"}, "introduction": {name: "商铺指引", url: "/merchant/introduction?action=getinfo&t=shop/shop_guide"}                    }                }            };
+        var menuJson = {}, uin = "3097198628";
+        var primary_nav = "function";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["masssend"] = {primary: "function", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "function";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["tmplmsg"] = {primary: "function", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "function";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["advanced"] = {primary: "function", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "function";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["business"] = {primary: "function", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "function";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["devicefunc"] = {primary: "function", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "manage";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["message"] = {primary: "manage", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "manage";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["contact"] = {primary: "manage", selected: "1" === "1", nav_flag: 1};
+        var primary_nav = "manage";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["material"] = {primary: "manage", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "service";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["shop"] = {primary: "service", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "service";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["myservice"] = {primary: "service", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "statistics";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["user"] = {primary: "statistics", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "statistics";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["appmsg"] = {primary: "statistics", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "statistics";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["message"] = {primary: "statistics", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "statistics";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["interface"] = {primary: "statistics", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "setting";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["account"] = {primary: "setting", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "setting";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["assistant"] = {primary: "setting", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "setting";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["safe"] = {primary: "setting", selected: "" === "1", nav_flag: 1};
+        var primary_nav = "store";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["overview"] = {primary: "store", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "store";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["addgoods"] = {primary: "store", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "store";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["goods"] = {primary: "store", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "store";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["group"] = {primary: "store", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "store";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["shelf"] = {primary: "store", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "store";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["imagebase"] = {primary: "store", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "store";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["productorder"] = {primary: "store", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "store";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["rights"] = {primary: "store", selected: "" === "1", nav_flag: 0};
+        var primary_nav = "store";
+        menuJson[primary_nav] = menuJson[primary_nav] || {};
+        menuJson[primary_nav]["delivery"] = {primary: "store", selected: "" === "1", nav_flag: 0};
+        ;
+        function getObjLength(obj) {
+            var c = 0;
+            for (var j in obj) {
+                c++;
+            }
+            return c;
+        }
+
+        function formatMenuData(menuJson, menuData) {
+            var status = window.Cookies.get("menu_status");
+            status = !status ? {} : Cookies.parse(status);
+            status = status[uin] || {};
+            for (var primary_id in menuJson) {
+                var menuSubJson = menuJson[primary_id];
+                for (var nav_id in menuSubJson) {
+                    var item = menuSubJson[nav_id];
+                    if (!!item.primary) {
+                        var primary = item.primary, menu = menuData[primary], sub = menu.sub[nav_id];
+                        if (!!status[primary]) {
+                            menu.isOpen = true;
+                        }
+                        if (!!sub && item.nav_flag > 0) {
+                            sub.isShow = true;
+                            sub.isSelected = item.selected;
+                            sub.url = ([].concat(sub.url))[item.nav_flag - 1] + '&token=1560285654&lang=zh_CN';
+                        }
+                    }
+                }
+            }
+            return menuData;
+        }
+
+        function render(data) {
+            var d_len = getObjLength(data), d_c = 0, html = [];
+            for (var key in data) {
+                var menu = data[key], sub = menu.sub, sub_html = [], c = 0, len = getObjLength(sub), isSelected = false;
+                for (var j in sub) {
+                    var item = sub[j];
+                    if (item.isShow) {
+                        c++;
+                        isSelected = isSelected || item.isSelected;
+                        sub_html.push(['<dd id="menu_', j, '" class="menu_item ', (c == len ? " no_extra " : ""), (item.isSelected ? " selected " : ""), '"><a href="', item.url, '"', (item.openew ? ' target="_blank"' : ''), '>', item.name, "</a></dd>"].join(""));
+                    }
+                }
+                if (c > 0) {
+                    d_c++;
+                    html.push([                            '<dl id="menu_', key, '" class="menu ', (d_c == 1 ? " no_extra " : (d_c == d_len ? "extra" : "")), (isSelected ? " selected " : ""), ' ', (isSelected || menu.isOpen ? "" : "closed"), '">', '<dt class="menu_title"><i class="icon_menu ', key, '"></i><i class="icon_menu_switch"></i>', menu.name, menu.isNew ? '<i class="icon_common new"></i>' : "", '</dt>', sub_html.join(''), '</dl>'                        ].join(""));
+                } else {
+                    d_len--;
+                }
+            }
+            document.getElementById('menuBar').innerHTML = html.join('');
+        }
+
+        render(formatMenuData(menuJson, menuData));
+    } catch (e) {
+        _report(3, '[fakeid=3097198628] [script] [url=' + location.href + '] [useragent=' + window.navigator.userAgent + '] [src=menu error] [exception=' + e + ']');
+    }
+})();</script>
+</div>
+<div class="col_main">
+    <div class="main_hd">
+        <div class="title_tab" id="topTab"></div>
+    </div>
+    <div class="main_bd">
+        <div class="inner_container_box side_r split">
+            <div class="inner_side">
+                <div class="bd">
+                    <div class="group_list">
+                        <div class="inner_menu_box" id="groupsList"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="inner_main">
+                <div class="bd">
+                    <div class="sub_title_bar default">
+                        <div class="group_select">
+                            <div id="allGroup" class="dropdown_wrp"></div>
+                            &nbsp;</div>
+                        <div class="pagination_wrp js_pageNavigator"></div>
+                    </div>
+                    <div class="table_wrp user_list">
+                        <table class="table" cellspacing="0">
+                            <thead class="thead">
+                            <tr>
+                                <th class="table_cell user no_extra" colspan="3"><label for="selectAll"
+                                                                                        class="frm_checkbox_label">
+                                    <i class="icon_checkbox"></i> <input type="checkbox" class="frm_checkbox"
+                                                                         id="selectAll"> 全选 </label></th>
+                            </tr>
+                            </thead>
+                            <tbody class="tbody" id="userGroups"></tbody>
+                        </table>
+                    </div>
+                    <div class="tool_area">
+                        <div class="pagination_wrp js_pageNavigator"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="faq">
+    <ul class="links">
+        <li class="links_item no_extra"><a
+                href="http://crm2.qq.com/page/portalpage/wpa.php?uin=40012345&f=1&ty=1&ap=000011:400792:|m:12|f:400792:m:12"
+                target="_blank">在线客服</a></li>
+        <li class="links_item"><a href="http://kf.qq.com/product/weixinmp.html" target="_blank">客服中心</a></li>
+    </ul>
+    <p class="tail">反馈官号：weixingongzhong</p></div>
+</div>
+<div class="foot" id="footer">
+    <ul class="links ft">
+        <li class="links_item no_extra"><a href="http://www.tencent.com/zh-cn/index.shtml" target="_blank">关于腾讯</a></li>
+        <li class="links_item"><a
+                href="/cgi-bin/readtemplate?t=home/agreement_tmpl&type=info&lang=zh_CN&token=1560285654"
+                target="_blank">服务协议</a></li>
+        <li class="links_item"><a
+                href="/cgi-bin/readtemplate?t=business/faq_operation_tmpl&type=info&lang=zh_CN&token=1560285654"
+                target="_blank">运营规范</a></li>
+        <li class="links_item"><a href="http://kf.qq.com/product/weixinmp.html" target="_blank">客服中心</a></li>
+        <li class="links_item"><a
+                href="http://crm2.qq.com/page/portalpage/wpa.php?uin=40012345&f=1&ty=1&ap=000011:400792:|m:12|f:400792:m:12"
+                target="_blank">在线客服</a></li>
+        <li class="links_item"><a href="mailto:weixinmp@qq.com" target="_blank">联系邮箱</a></li>
+        <li class="links_item"><a href="/cgi-bin/readtemplate?t=home/infringement_tmpl&lang=zh_CN"
+                                  target="_blank">侵权投诉</a></li>
+        <li class="links_item"><p class="copyright">Copyright &copy; 2012-2014 Tencent. All Rights Reserved.</p></li>
+    </ul>
+</div>
+<script>            mp.time.domLoaded = (+new Date());        </script>
+<script type="text/javascript">var MODULES = {'business/course.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/course1cd20f.js', 'common/wx/top.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/top1cd20f.js', '.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/.js', 'business/release.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/release1cd20f.js', 'biz_common/jquery.validate.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/jquery.validate1cd20f.js', 'common/wx/Cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/Cgi1cd20f.js', 'common/wx/Tips.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/Tips1cd20f.js', 'business/source.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/source1cd20f.js', 'common/wx/dateSelect.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/dateSelect1cd20f.js', 'biz_common/moment.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/moment1cd20f.js', 'biz_common/underscore.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/underscore1cd20f.js', 'biz_web/lib/highcharts.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/lib/highcharts1cd20f.js', 'business/arbist.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/arbist1cd20f.js', 'common/wx/popup.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/popup1cd20f.js', 'common/wx/pagebar.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/pagebar1cd20f.js', 'biz_web/ui/dropdown.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/ui/dropdown1cf320.js', 'common/wx/upload.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/upload1d5e0a.js', 'business/first_check.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/first_check1cd20f.js', 'business/pay-reg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/pay-reg1cd20f.js', 'common/wx/iframe.method.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/iframe.method1cd20f.js', 'business/overview.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/overview1cd20f.js', 'business/faq.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/faq1cd20f.js', 'common/wx/anchor.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/anchor1cd20f.js', 'business/rightlist.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/rightlist1cd20f.js', 'common/wx/dialog.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/dialog1cd20f.js', 'business/info.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/info1cd20f.js', 'business/order.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/order1cd20f.js', 'business/rank.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/rank1cd20f.js', 'business/whitelist.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/whitelist1d4196.js', 'common/wx/verifycode.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/verifycode1cd20f.js', 'business/right.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/right1cd20f.js', 'biz_web/lib/json.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/lib/json1cd20f.js', 'common/wx/tooltips.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/tooltips1cd20f.js', 'business/setting.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/business/setting1cd20f.js', 'biz_web/ui/checkbox.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/ui/checkbox1cf320.js', 'payApply/baseInfo.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/payApply/baseInfo1cf320.js', 'common/wx/Step.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/Step1cd20f.js', 'payApply/businessInfo.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/payApply/businessInfo1cd20f.js', 'xss/ui/date_select.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/date_select1d41b7.css', 'common/lib/datepicker.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/lib/datepicker1cd20f.js', 'payApply/businessMenu.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/payApply/businessMenu1cd20f.js', 'payApply/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/payApply/index1cd20f.js', 'payApply/release.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/payApply/release1cd20f.js', 'payApply/earnest.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/payApply/earnest1cd20f.js', 'payApply/finance.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/payApply/finance1cd20f.js', 'tpl/shop/goodlist.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/shop/goodlist.html1cd20f.js', 'tpl/shop/grouplist.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/shop/grouplist.html1cd20f.js', 'tpl/shop/minilist.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/shop/minilist.html1cd20f.js', 'tpl/shop/igoodlist.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/shop/igoodlist.html1cd20f.js', 'tpl/shop/skulist.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/shop/skulist.html1cd20f.js', 'tpl/RichBuddy/RichBuddyLayout.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/RichBuddy/RichBuddyLayout.html1cd20f.js', 'tpl/RichBuddy/RichBuddyContent.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/RichBuddy/RichBuddyContent.html1cd20f.js', 'tpl/user/grouplist.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/user/grouplist.html1cd20f.js', 'tpl/user/userlist.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/user/userlist.html1cd20f.js', 'tpl/user/verifylist.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/user/verifylist.html1cd20f.js', 'tpl/media/single_appmsg_dialog/layout.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/single_appmsg_dialog/layout.html1cd20f.js', 'tpl/media/single_appmsg_dialog/item.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/single_appmsg_dialog/item.html1cd20f.js', 'tpl/media/appmsg_edit/first_appmsg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/appmsg_edit/first_appmsg.html1cd20f.js', 'tpl/media/appmsg_edit/small_appmsg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/appmsg_edit/small_appmsg.html1cd20f.js', 'tpl/media/appmsg_edit/editor.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/appmsg_edit/editor.html1cd20f.js', 'tpl/media/dialog/appmsg_layout.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/dialog/appmsg_layout.html1cd20f.js', 'tpl/media/dialog/videomsg_layout.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/dialog/videomsg_layout.html1cd20f.js', 'tpl/media/dialog/file_layout.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/dialog/file_layout.html1cd20f.js', 'tpl/media/dialog/file.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/dialog/file.html1cd20f.js', 'tpl/media/audio.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/audio.html1cd20f.js', 'tpl/media/id_card.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/id_card.html1cd20f.js', 'tpl/media/video.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/video.html1cd20f.js', 'tpl/media/appmsg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/appmsg.html1cd20f.js', 'tpl/media/img.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/img.html1cd20f.js', 'tpl/media/videomsg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/videomsg.html1cd20f.js', 'tpl/media/simple_appmsg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/media/simple_appmsg.html1cd20f.js', 'tpl/message/video_popup.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/message/video_popup.html1cd20f.js', 'tpl/richEditor/emotionEditor.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/richEditor/emotionEditor.html1cd20f.js', 'tpl/richEditor/emotion.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/richEditor/emotion.html1cd20f.js', 'tpl/setting/more_size.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/setting/more_size.html1cd20f.js', 'tpl/setting/mult_infowindow_edit.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/setting/mult_infowindow_edit.html1cd20f.js', 'tpl/notice/index.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/notice/index.html1cd20f.js', 'tpl/wxverify/gov_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/gov_preview.html1cd20f.js', 'tpl/wxverify/civilianreg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/civilianreg.html1cd20f.js', 'tpl/wxverify/step1.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/step1.html1cd20f.js', 'tpl/wxverify/step2.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/step2.html1cd20f.js', 'tpl/wxverify/confirmname.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/confirmname.html1cd20f.js', 'tpl/wxverify/step3.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/step3.html1cf320.js', 'tpl/wxverify/civilian_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/civilian_preview.html1cd20f.js', 'tpl/wxverify/step4.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/step4.html1cd20f.js', 'tpl/wxverify/step5.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/step5.html1cf320.js', 'tpl/wxverify/artistreg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/artistreg.html1cd20f.js', 'tpl/wxverify/shopreg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/shopreg.html1cd20f.js', 'tpl/wxverify/artist_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/artist_preview.html1cd20f.js', 'tpl/wxverify/socialreg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/socialreg.html1cd20f.js', 'tpl/wxverify/shop_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/shop_preview.html1cd20f.js', 'tpl/wxverify/social_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/social_preview.html1cd20f.js', 'tpl/wxverify/nonprofitreg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/nonprofitreg.html1cd20f.js', 'tpl/wxverify/mediareg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/mediareg.html1cd20f.js', 'tpl/wxverify/nonprofit_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/nonprofit_preview.html1cd20f.js', 'tpl/wxverify/media_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/media_preview.html1cd20f.js', 'tpl/wxverify/increment_tax_form.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/increment_tax_form.html1cd20f.js', 'tpl/wxverify/entreg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/entreg.html1cd20f.js', 'tpl/wxverify/mediaentreg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/mediaentreg.html1cd20f.js', 'tpl/wxverify/profitablereg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/profitablereg.html1cd20f.js', 'tpl/wxverify/commonreg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/commonreg.html1cd20f.js', 'tpl/wxverify/ent_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/ent_preview.html1cd20f.js', 'tpl/wxverify/mediaent_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/mediaent_preview.html1cd20f.js', 'tpl/wxverify/profitable_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/profitable_preview.html1cd20f.js', 'tpl/wxverify/govreg.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/govreg.html1cd20f.js', 'tpl/wxverify/common_preview.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/wxverify/common_preview.html1cd20f.js', 'tpl/multiSelector/list.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/multiSelector/list.html1cd20f.js', 'tpl/multiSelector/item.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/multiSelector/item.html1cd20f.js', 'tpl/biz_web/ui/checkbox.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/biz_web/ui/checkbox.html1cf320.js', 'tpl/biz_web/ui/dateRange.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/biz_web/ui/dateRange.html1cd20f.js', 'tpl/biz_web/ui/dropdown.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/biz_web/ui/dropdown.html1cf320.js', 'tpl/tooltip.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/tooltip.html1cd20f.js', 'tpl/dialog.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/dialog.html1cd20f.js', 'tpl/msgListItem.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/msgListItem.html1cd20f.js', 'tpl/pagebar.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/pagebar.html1cd20f.js', 'tpl/popup.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/popup.html1cf320.js', 'tpl/tab.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/tab.html1cd20f.js', 'tpl/uploader.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/uploader.html1cd20f.js', 'tpl/step.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/step.html1cd20f.js', 'tpl/colorpicker.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/colorpicker.html1cd20f.js', 'tpl/dateSelect.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/dateSelect.html1cd20f.js', 'tpl/dropdowns.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/dropdowns.html1cd20f.js', 'tpl/editit.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/editit.html1cd20f.js', 'tpl/slider.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/slider.html1cd20f.js', 'tpl/noticeBox.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/noticeBox.html1cd20f.js', 'tpl/account_message_list.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/account_message_list.html1cd20f.js', 'tpl/confirm.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/confirm.html1cd20f.js', 'tpl/hourspan.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/hourspan.html1cd20f.js', 'tpl/verifycode.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/verifycode.html1cd20f.js', 'tpl/accordion.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/accordion.html1cd20f.js', 'tpl/top.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/top.html1cd20f.js', 'tpl/multi_ddchild.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/multi_ddchild.html1cd20f.js', 'tpl/multi_dropdown.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/multi_dropdown.html1cd20f.js', 'tpl/simple_popup.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/simple_popup.html1cd20f.js', 'tpl/simplePopup.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/simplePopup.html1cd20f.js', 'tpl/tooltips.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/tooltips.html1cd20f.js', 'tpl/basekeyword.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/basekeyword.html1cd20f.js', 'tpl/pay_by_qrcode.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/pay_by_qrcode.html1cd20f.js', 'tpl/remark.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/remark.html1cd20f.js', 'tpl/phone_validate.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/phone_validate.html1cd20f.js', 'tpl/keyword.html.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tpl/keyword.html1cd20f.js', 'ivr/ivr_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ivr/ivr_cgi1cd20f.js', 'ivr/keywords.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ivr/keywords1cd20f.js', 'common/qq/emoji.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/qq/emoji1cd20f.js', 'common/wx/richEditor/emotionEditor.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/richEditor/emotionEditor1cd20f.js', 'media/media_dialog.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/media/media_dialog1cd20f.js', 'common/wx/media/audio.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/media/audio1cd20f.js', 'common/wx/media/img.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/media/img1cd20f.js', 'common/wx/media/video.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/media/video1cd20f.js', 'common/wx/media/simpleAppmsg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/media/simpleAppmsg1cd20f.js', 'common/wx/media/appmsg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/media/appmsg1cd20f.js', 'ivr/reply.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ivr/reply1cd20f.js', 'common/wx/richEditor/msgSender.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/richEditor/msgSender1cd20f.js', 'mass/send.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/mass/send1cd20f.js', 'common/qq/mask.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/qq/mask1cd20f.js', 'common/wx/region.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/region1cd20f.js', 'message/message_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/message/message_cgi1cd20f.js', 'mass/list.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/mass/list1d306b.js', 'common/wx/time.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/time1cd20f.js', 'common/wx/media/idCard.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/media/idCard1cd20f.js', 'shop/precreate.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/precreate1cf320.js', 'shop/create_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/create_cgi1cf320.js', 'shop/list.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/list1cf320.js', 'shop/goods_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/goods_cgi1cf320.js', 'common/qq/prototype.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/qq/prototype1cd20f.js', 'common/qq/jquery.plugin/zclip.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/qq/jquery.plugin/zclip1cd20f.js', 'shop/template_choose.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/template_choose1cf320.js', 'shop/category.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/category1cf320.js', 'common/wx/dropdowns.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/dropdowns1cd20f.js', 'common/wx/editit.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/editit1cd20f.js', 'shop/group_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/group_cgi1cf320.js', 'shop/deliverylist.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/deliverylist1cf320.js', 'common/wx/tooltipsManager.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/tooltipsManager1cd20f.js', 'shop/delivery_common.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/delivery_common1cf320.js', 'shop/test.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/test1cf320.js', 'shop/config.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/config1cf320.js', 'shop/shelf_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/shelf_cgi1cf320.js', 'shop/order_info.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/order_info1cf320.js', 'shop/order_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/order_cgi1cf320.js', 'shop/express.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/express1cf320.js', 'shop/deliveryedit.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/deliveryedit1d4070.js', 'common/wx/multiSelector/shop_city.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/multiSelector/shop_city1cf320.js', 'shop/shelf_management.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/shelf_management1cf320.js', 'shop/tmpl_management.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/tmpl_management1cf320.js', 'shop/create_img.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/create_img1cf320.js', 'shop/imgs.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/imgs1cf320.js', 'shop/create.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/create1cf320.js', 'shop/shelf_edit.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/shelf_edit1cf320.js', 'shop/overview.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/overview1cf320.js', 'biz_web/ui/dateRange.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/ui/dateRange1cd20f.js', 'shop/order_list.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/order_list1cf320.js', 'common/qq/queryString.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/qq/queryString1cd20f.js', 'shop/myshelf.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/myshelf1cf320.js', 'common/wx/wxt.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/wxt1cd20f.js', 'shop/imglist.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/shop/imglist1cf320.js', 'setting/temp/meeting-account.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/temp/meeting-account1cd20f.js', 'setting/temp/bind-account.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/temp/bind-account1cd20f.js', 'setting/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/index1cd20f.js', 'common/lib/jquery.Jcrop.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/lib/jquery.Jcrop1cd20f.js', 'setting/map_setting.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/map_setting1d5e0b.js', 'setting/mphelper.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/mphelper1cd20f.js', 'setting/wxverifycode.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/wxverifycode1cd20f.js', 'setting/multi_citydata.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/multi_citydata1d5e0b.js', 'setting/upgrade-notes.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/upgrade-notes1cd20f.js', 'setting/dev.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/dev1cd20f.js', 'setting/markerTool.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/markerTool1cd20f.js', 'setting/SearchResultPanel.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/SearchResultPanel1cd20f.js', 'setting/MyMarker.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/MyMarker1cd20f.js', 'setting/CitySelectComponent.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/CitySelectComponent1cd20f.js', 'setting/multi_city_select.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/multi_city_select1d5e0b.js', 'setting/multi_location.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/multi_location1d5e0b.js', 'setting/multi_map.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/multi_map1d5e0b.js', 'setting/multiMarker.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/multiMarker1d5e0b.js', 'setting/bind-email-status.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/bind-email-status1cd20f.js', 'setting/citydata.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/citydata1cd20f.js', 'setting/set-location.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/set-location1cd20f.js', 'setting/bind-email.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/setting/bind-email1cd20f.js', 'biz_common/jquery.md5.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/jquery.md51cd20f.js', 'safe/phone_modify.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/safe/phone_modify1cd20f.js', 'safe/token.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/safe/token1cd20f.js', 'safe/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/safe/index1cd20f.js', 'safe/phone.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/safe/phone1cd20f.js', 'safe/remind.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/safe/remind1cd20f.js', 'mall/card_verify.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/mall/card_verify1cd20f.js', 'mall/template_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/mall/template_cgi1cd20f.js', 'mall/template_list.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/mall/template_list1cd20f.js', 'ad_system/promotion/create.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ad_system/promotion/create1cd20f.js', 'common/wx/media/appmsgDialog.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/media/appmsgDialog1cd20f.js', 'biz_web/ui/input/lentips.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/ui/input/lentips1cd20f.js', 'common/wx/multiSelector/city.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/multiSelector/city1cd20f.js', 'common/wx/multiSelector/industry.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/multiSelector/industry1cd20f.js', 'common/wx/slider.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/slider1cd20f.js', 'common/wx/hourspan.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/hourspan1cd20f.js', 'ad_system/promotion/ad_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ad_system/promotion/ad_cgi1cd20f.js', 'ad_system/promotion/list.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ad_system/promotion/list1cd20f.js', 'ad_system/host_manage.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ad_system/host_manage1cd20f.js', 'ad_system/host_pay.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ad_system/host_pay1cd20f.js', 'ad_system/client_pay.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ad_system/client_pay1cd20f.js', 'ad_system/host_report.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ad_system/host_report1cd20f.js', 'ad_system/client_report.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/ad_system/client_report1cd20f.js', 'message/send.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/message/send1cd20f.js', 'message/renderList.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/message/renderList1cd20f.js', 'message/list.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/message/list1cd20f.js', 'common/wx/simplePopup.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/simplePopup1cd20f.js', 'common/qq/Class.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/qq/Class1cd20f.js', 'common/wx/RichBuddy.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/RichBuddy1cd20f.js', 'common/wx/remark.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/remark1cd20f.js', 'common/qq/events.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/qq/events1cd20f.js', 'accusation/accuse_info.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/accusation/accuse_info1cd20f.js', 'advanced/verify.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/advanced/verify1cd20f.js', 'advanced/edit.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/advanced/edit1cd20f.js', 'advanced/warning.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/advanced/warning1cd20f.js', 'advanced/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/advanced/index1cd20f.js', 'advanced/menuApply.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/advanced/menuApply1cd20f.js', 'advanced/dev.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/advanced/dev1cd20f.js', 'advanced/interface.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/advanced/interface1cd20f.js', 'advanced/iframe-crossdomain.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/advanced/iframe-crossdomain1cd20f.js', 'advanced/menuSetting.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/advanced/menuSetting1cd20f.js', 'common/wx/media/factory.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/media/factory1cd20f.js', 'biz_common/xss.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/xss1cd20f.js', 'biz_common/jquery.ui/jquery.ui.sortable.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/jquery.ui/jquery.ui.sortable1cd20f.js', 'user/force_change_pwd.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/user/force_change_pwd1cd20f.js', 'user/group_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/user/group_cgi1cd20f.js', 'user/user_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/user/user_cgi1cd20f.js', 'user/validate_phone.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/user/validate_phone1cd20f.js', 'user/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/user/index1cd20f.js', 'register/mediareg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/mediareg1cd20f.js', 'register/commonreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/commonreg1cd20f.js', 'register/refill.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/refill1cd20f.js', 'wxverify/validateExtend.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/validateExtend1cd20f.js', 'register/step3.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/step31cd20f.js', 'register/otherreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/otherreg1cd20f.js', 'register/type_select.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/type_select1cd20f.js', 'register/entreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/entreg1cd20f.js', 'register/base_info.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/base_info1cd20f.js', 'common/qq/jquery.plugin/serializeObject.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/qq/jquery.plugin/serializeObject1cd20f.js', 'common/lib/jquery.md5.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/lib/jquery.md5.js', 'register/upgrade.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/upgrade1cd20f.js', 'register/step1_tmpl.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/step1_tmpl1cd20f.js', 'register/step1.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/step11cd20f.js', 'register/step2.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/step21cd20f.js', 'register/govreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/govreg1cd20f.js', 'register/personreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/personreg1cd20f.js', 'register/step4.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/step41cd20f.js', 'register/step5.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/step51cd20f.js', 'register/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/register/index1cd20f.js', 'notification/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/notification/index1cd20f.js', 'home/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/home/index1cd20f.js', 'home/login.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/home/login1cd20f.js', 'biz_common/cookie.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/cookie1cd20f.js', 'statistics/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/statistics/index1cd20f.js', 'wbverify/step2_sina.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wbverify/step2_sina1cd20f.js', 'wbverify/step2_tx.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wbverify/step2_tx1cd20f.js', 'wbverify/step3_sina.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wbverify/step3_sina1cd20f.js', 'wbverify/step3_tx.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wbverify/step3_tx1cd20f.js', 'wbverify/step.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wbverify/step1cd20f.js', 'wbverify/step1.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wbverify/step11cd20f.js', 'device/setting.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/device/setting1cd20f.js', 'service/detail.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/service/detail1cd20f.js', 'service/apply.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/service/apply1cd20f.js', 'service/msgTpl.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/service/msgTpl1cd20f.js', 'service/myService.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/service/myService1cd20f.js', 'service/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/service/index1cd20f.js', 'service/pay.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/service/pay1cd20f.js', 'service/base.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/service/base1cd20f.js', 'service/order.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/service/order1cd20f.js', 'service/package.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/service/package1cd20f.js', 'service/step.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/service/step1cd20f.js', 'news/operation_guide.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/news/operation_guide1cd20f.js', 'news/authorization.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/news/authorization1cd20f.js', 'media/list.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/media/list1cd20f.js', 'media/media_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/media/media_cgi1cd20f.js', 'media/appmsg_edit.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/media/appmsg_edit1cd665.js', 'xss/ui/media/appmsg_editor.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/media/appmsg_editor1cd20f.css', 'biz_web/lib/store.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/lib/store1cd20f.js', 'xss/ui/media/media_dialog.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/media/media_dialog1d41b7.css', 'xss/ui/media/richvideo.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/media/richvideo1d41b7.css', 'media/appmsg_list.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/media/appmsg_list1cd20f.js', 'media/videomsg_edit.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/media/videomsg_edit1cd20f.js', 'tmplmsg/apply.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tmplmsg/apply1cd20f.js', 'common/wx/trade.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/trade1cd20f.js', 'tmplmsg/tplEdit.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tmplmsg/tplEdit1cd20f.js', 'common/lib/colorpicker.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/lib/colorpicker1cd20f.js', 'xss/ui/colorpicker.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/colorpicker1cd20f.css', 'tmplmsg/tpl_cgi.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tmplmsg/tpl_cgi1cd20f.js', 'tmplmsg/searchBar.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tmplmsg/searchBar1cd20f.js', 'tmplmsg/list.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tmplmsg/list1cd20f.js', 'tmplmsg/store.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tmplmsg/store1cd20f.js', 'tmplmsg/preview.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tmplmsg/preview1cd20f.js', 'tmplmsg/detail.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/tmplmsg/detail1cd20f.js', 'wxverify/nonprofitreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/nonprofitreg1cd20f.js', 'wxverify/commonreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/commonreg1cd20f.js', 'wxverify/refill.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/refill1cd20f.js', 'wxverify/step1.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/step11cd20f.js', 'wxverify/step2.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/step21cd20f.js', 'wxverify/step3.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/step31cd20f.js', 'wxverify/step4.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/step41cd20f.js', 'wxverify/step5.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/step51cf320.js', 'wxverify/mediareg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/mediareg1cf320.js', 'wxverify/entreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/entreg1cd20f.js', 'wxverify/mediaentreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/mediaentreg1cf320.js', 'wxverify/profitablereg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/profitablereg1cd20f.js', 'wxverify/govreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/govreg1cd20f.js', 'wxverify/supplement_verify_info.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/supplement_verify_info1d3011.js', 'common/wx/stopMultiRequest.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/stopMultiRequest1cd20f.js', 'wxverify/civilianreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/civilianreg1cd20f.js', 'wxverify/shopreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/shopreg1cd20f.js', 'wxverify/socialreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/socialreg1cd20f.js', 'wxverify/artistreg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/artistreg1cd20f.js', 'biz_common/aes.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/aes1cd20f.js', 'wxverify/init.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/init1cd20f.js', 'wxverify/confirmName.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/confirmName1cd20f.js', 'wxverify/detail.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/detail1cd20f.js', 'wxverify/index.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/wxverify/index1cd20f.js', 'xss/ui/datepicker.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/datepicker1cd26d.css', 'common/lib/MockJax.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/lib/MockJax1cd20f.js', 'xss/ui/media.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/media1cd26d.css', 'biz_web/lib/soundmanager2.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/lib/soundmanager21cd20f.js', 'biz_web/lib/video.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/lib/video1cd20f.js', 'biz_web/lib/swfobject.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/lib/swfobject1cd20f.js', 'widget/msg_list.css': 'https://res.wx.qq.com/mpres/htmledition/style/widget/msg_list1cd20f.css', 'common/wx/multiSelector.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/multiSelector1cd20f.js', 'xss/ui/emotion_editor.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/emotion_editor1cd26d.css', 'common/wx/richEditor/wysiwyg.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/richEditor/wysiwyg1cd20f.js', 'common/wx/richEditor/emotion.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/richEditor/emotion1cd20f.js', 'common/wx/richEditor/editorRange.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/richEditor/editorRange1cd20f.js', 'xss/ui/msg_sender.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/msg_sender1cd20f.css', 'common/qq/jquery.plugin/tab.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/qq/jquery.plugin/tab1cd20f.js', 'common/wx/multiDropdown.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/multiDropdown1cd20f.js', 'xss/ui/dropdown_menu.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/dropdown_menu1cd20f.css', 'common/wx/dragHelper.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/dragHelper1cd20f.js', 'common/wx/pay_by_qrcode.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/pay_by_qrcode1cd20f.js', 'widget/slider.css': 'https://res.wx.qq.com/mpres/htmledition/style/widget/slider1cd26d.css', 'common/wx/keyword.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/keyword1cd20f.js', 'common/wx/tooltip.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/tooltip1cd20f.js', 'widget/areaselector.css': 'https://res.wx.qq.com/mpres/htmledition/style/widget/areaselector1cd26d.css', 'widget/verifycode.css': 'https://res.wx.qq.com/mpres/htmledition/style/widget/verifycode1cd20f.css', 'xss/ui/pagination.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/pagination1cd20f.css', 'common/wx/widgetBridge.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/widgetBridge1cd20f.js', 'xss/ui/processor_bar.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/processor_bar1cd26d.css', 'xss/ui/rich_buddy.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/rich_buddy1cd20f.css', 'biz_web/widget/dropdown.css': 'https://res.wx.qq.com/mpres/htmledition/style/biz_web/widget/dropdown1cd20f.css', 'common/wx/phone_validate.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/phone_validate1cd20f.js', 'common/wx/iframe.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/iframe1cd20f.js', 'biz_web/lib/uploadify.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/lib/uploadify1cd20f.js', 'xss/ui/upload.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/upload1cd20f.css', 'common/wx/noticeBox.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/noticeBox1cd20f.js', 'biz_common/jquery.ui/jquery.ui.draggable.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/jquery.ui/jquery.ui.draggable1cd20f.js', 'common/wx/accordion.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/accordion1cd20f.js', 'common/wx/autocomplete.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx/autocomplete1cd20f.js', 'xss/ui/msg_tab.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/msg_tab1d41b7.css', 'biz_web/lib/spin.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/lib/spin1cd20f.js', 'common/qq/url.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/qq/url1cd20f.js', 'xss/ui/emoji.css': 'https://res.wx.qq.com/mpres/htmledition/style/xss/ui/emoji1cd26d.css', 'biz_web/widget/date_range.css': 'https://res.wx.qq.com/mpres/htmledition/style/biz_web/widget/date_range1cd26d.css', 'biz_web/lib/audiojs.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_web/lib/audiojs1cd20f.js', 'jquery-1.7.2.min.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/jquery-1.7.2.min1cd20f.js', 'jquery-1.8.3.min.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/jquery-1.8.3.min1cd20f.js', 'biz_common/template-2.0.1.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/template-2.0.11cd20f.js', 'biz_common/jquery-1.9.1.js': 'https://res.wx.qq.com/mpres/zh_CN/htmledition/js/biz_common/jquery-1.9.11cd20f.js'};</script>
+<script type="text/javascript" src="https://res.wx.qq.com/mpres/zh_CN/htmledition/js/sea1d3528.js"></script>
+<script type="text/javascript" src="https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/lib1cd20f.js"></script>
+<script type="text/javascript">
+    window.wx = {
+        version: "4.0.0",
+        data: {
+            t: "1560285654",
+            ticket: "f50993c3df46ccc8ab6585deda15f8ccced61702",
+            lang: 'zh_CN',
+            param: ["&token=1560285654", '&lang=zh_CN'].join(""), uin: "3097198628", user_name: "gh_b1b4bc56a4ea", time: "1398946842" || new Date().getTime() / 1000        }, path: {            video: "https://res.wx.qq.com/mpres/zh_CN/htmledition/plprecorder/biz_web/video-js1ccaec.swf", audio: "https://res.wx.qq.com/mpres/zh_CN/htmledition/plprecorder/biz_web/audiojs1ccaec.swf", uploadify: "https://res.wx.qq.com/mpres/zh_CN/htmledition/plprecorder/biz_web/uploadify1ccaec.swf", rimgcrop: "https://res.wx.qq.com/mpres/htmledition/images/cut-round1ccaec.gif"        }, acl: {                        "msg_acl": {                "can_text_msg": 1, "can_image_msg": 1, "can_voice_msg": 1, "can_video_msg": 1, "can_app_msg": 1, "can_commodity_app_msg": 0            }, "ivr_acl": {                "can_text_msg": 1, "can_image_msg": 1, "can_voice_msg": 1, "can_video_msg": 1, "can_app_msg": 1, "can_commodity_app_msg": 0            }                    }, events: {}//全局的事件绑定
+    };</script>
+<script type="text/javascript" src="https://res.wx.qq.com/mpres/zh_CN/htmledition/js/common/wx1cd20f.js"></script>
+<script>                var script_begin = (+(new Date()));        </script>
+<script type="text/javascript">define('xss/ui/emoji.css', [], function () {
+    return null;
+});
+define('biz_web/widget/dropdown.css', [], function () {
+    return null;
+});
+define('xss/ui/rich_buddy.css', [], function () {
+    return null;
+});
+define('xss/ui/pagination.css', [], function () {
+    return null;
+});</script>
+<script type="text/javascript"
+        src="https://res.wx.qq.com/c/=/mpres/zh_CN/htmledition/js/biz_web/lib/spin1cd20f.js,/mpres/zh_CN/htmledition/js/tpl/popup.html1cf320.js,/mpres/zh_CN/htmledition/js/common/wx/widgetBridge1cd20f.js,/mpres/zh_CN/htmledition/js/common/qq/mask1cd20f.js,/mpres/zh_CN/htmledition/js/biz_common/jquery.validate1cd20f.js,/mpres/zh_CN/htmledition/js/tpl/simplePopup.html1cd20f.js,/mpres/zh_CN/htmledition/js/tpl/biz_web/ui/checkbox.html1cf320.js,/mpres/zh_CN/htmledition/js/tpl/biz_web/ui/dropdown.html1cf320.js,/mpres/zh_CN/htmledition/js/tpl/RichBuddy/RichBuddyContent.html1cd20f.js,/mpres/zh_CN/htmledition/js/tpl/RichBuddy/RichBuddyLayout.html1cd20f.js,/mpres/zh_CN/htmledition/js/tpl/top.html1cd20f.js,/mpres/zh_CN/htmledition/js/common/wx/simplePopup1cd20f.js,/mpres/zh_CN/htmledition/js/tpl/pagebar.html1cd20f.js,/mpres/zh_CN/htmledition/js/tpl/dialog.html1cd20f.js,/mpres/zh_CN/htmledition/js/biz_common/jquery.ui/jquery.ui.draggable1cd20f.js"></script>
+<script type="text/javascript"
+        src="https://res.wx.qq.com/c/=/mpres/zh_CN/htmledition/js/biz_web/ui/checkbox1cf320.js,/mpres/zh_CN/htmledition/js/tpl/user/verifylist.html1cd20f.js,/mpres/zh_CN/htmledition/js/tpl/user/userlist.html1cd20f.js,/mpres/zh_CN/htmledition/js/tpl/user/grouplist.html1cd20f.js,/mpres/zh_CN/htmledition/js/common/qq/emoji1cd20f.js,/mpres/zh_CN/htmledition/js/common/qq/events1cd20f.js,/mpres/zh_CN/htmledition/js/biz_web/ui/dropdown1cf320.js,/mpres/zh_CN/htmledition/js/user/group_cgi1cd20f.js,/mpres/zh_CN/htmledition/js/user/user_cgi1cd20f.js,/mpres/zh_CN/htmledition/js/common/wx/RichBuddy1cd20f.js,/mpres/zh_CN/htmledition/js/common/wx/top1cd20f.js,/mpres/zh_CN/htmledition/js/common/wx/remark1cd20f.js,/mpres/zh_CN/htmledition/js/common/wx/pagebar1cd20f.js,/mpres/zh_CN/htmledition/js/user/index1cd20f.js"></script>
+<script type="text/javascript">var page_dom_load_id = 23545, page_dom_load_key = 92;
+var page_onload_id = 23545, page_onload_key = 93;
+var page_js_script_id = 23545, page_js_script_key = 94;
+var page_ava_id = 23545, page_ava_key = 95;</script>
+<script type="text/javascript">    wx.cgiData = {
+    isVerifyOn: "0" * 1,
+    pageIdx: 0,
+    pageCount: 1,
+    pageSize: 10,
+    groupsList: ({"groups": [
+        {"id": 0, "name": "未分组", "cnt": 7},
+        {"id": 1, "name": "黑名单", "cnt": 0},
+        {"id": 2, "name": "星标组", "cnt": 0}
+    ]}).groups,
+    friendsList: ({"contacts": [
+        {"id": 2151498040, "nick_name": "Fighting！", "remark_name": "", "group_id": 0},
+        {"id": 321385200, "nick_name": "蜡笔小心", "remark_name": "", "group_id": 0},
+        {"id": 155707355, "nick_name": "张佳", "remark_name": "", "group_id": 0},
+        {"id": 2446328183, "nick_name": "丹丹", "remark_name": "", "group_id": 0},
+        {"id": 1212231962, "nick_name": "Kenny", "remark_name": "", "group_id": 0},
+        {"id": 559874680, "nick_name": "黄蒙蒙", "remark_name": "", "group_id": 0},
+        {"id": 390155360, "nick_name": "kafee", "remark_name": "", "group_id": 0}
+    ]}).contacts, currentGroupId: '', type: "0" * 1 || 0, userRole: '1' * 1, verifyMsgCount: '0' * 1, totalCount: '7' * 1    };
+seajs.use('user/index', wx_main);
+;</script>
+<script>            function getico(i) {
+    var _img = new Image(1, 1);
+    _img.src = wx.url(location.protocol + "//" + location.host + "/misc/getico" + "?location=" + (i || -1) + "&rand=" + Math.random());
+}
+;
+getico('0');
+console.log("DOM Loaded Time : " + (mp.time.domLoaded - mp.time.begin) + " ms");
+if (typeof page_dom_load_id != "undefined" && typeof page_dom_load_key != "undefined") {
+    wx_save_report(page_dom_load_id, page_dom_load_key, mp.time.domLoaded - mp.time.begin);
+    wx_save_report(page_all_dom_load_id, page_all_dom_load_key, mp.time.domLoaded - mp.time.begin);
+}
+window.onload = function () {
+    mp.time.allResLoaded = (+new Date());
+    console.log('All Res Loaded Time : %s ms'.sprintf(mp.time.allResLoaded - mp.time.begin));
+    if (typeof page_onload_id != "undefined" && typeof page_onload_key != "undefined") {
+        wx_save_report(page_onload_id, page_onload_key, mp.time.allResLoaded - mp.time.begin);
+        wx_save_report(page_all_onload_id, page_all_onload_key, mp.time.allResLoaded - mp.time.begin);
+    }
+    wx_report();
+};        </script>
+</body>
+</html>
