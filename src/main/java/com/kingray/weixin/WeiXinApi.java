@@ -1,6 +1,9 @@
 package com.kingray.weixin;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kingray.weixin.vo.ContactsVo;
 import com.kingray.weixin.vo.GetContactRequestVo;
 import com.kingray.weixin.vo.LoginResultVo;
 import com.kingray.weixin.vo.LoginVo;
@@ -37,8 +40,38 @@ public class WeiXinApi {
     private CloseableHttpClient closeableHttpClient;
     private String loginUrl = "https://mp.weixin.qq.com/cgi-bin/login?lang=zh_CN";
     private String token;
-    private ObjectMapper objectMapper = new ObjectMapper();
+
+    private ThreadLocal<ObjectMapper> _mapper = new ThreadLocal<ObjectMapper>() {
+        @Override
+        protected ObjectMapper initialValue() {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+            objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+            return objectMapper;
+        }
+    };
+
     private Pattern PATTERN_TOKEN = Pattern.compile("token=\\w+");
+    /**
+     * 查找wx.cgiData = {};的类似内容
+     */
+    private Pattern PATTERN_CGI_DATA = Pattern.compile("wx.cgiData\\s*=\\s*(.|\\s)*?\\}\\;");
+    /**
+     * wx.cgiData={
+     * isVerifyOn: "0"*1,
+     * pageIdx : 0,
+     * pageCount : 1,
+     * pageSize : 10,
+     * groupsList : ({"groups":[{"id":0,"name":"未分组","cnt":7},{"id":1,"name":"黑名单","cnt":0},{"id":2,"name":"星标组","cnt":0}]}).groups,
+     * friendsList : ({"contacts":[{"id":2151498040,"nick_name":"Fighting！","remark_name":"","group_id":0},{"id":321385200,"nick_name":"蜡笔小心","remark_name":"","group_id":0},{"id":155707355,"nick_name":"张佳","remark_name":"","group_id":0},{"id":2446328183,"nick_name":"丹丹","remark_name":"","group_id":0},{"id":1212231962,"nick_name":"Kenny","remark_name":"","group_id":0},{"id":559874680,"nick_name":"黄蒙蒙","remark_name":"","group_id":0},{"id":390155360,"nick_name":"kafee","remark_name":"","group_id":0}]}).contacts,
+     * currentGroupId : '',
+     * type : "0" * 1 || 0,
+     * userRole : '1' * 1,
+     * verifyMsgCount : '0' * 1,
+     * totalCount : '7' * 1
+     * };
+     */
+    private Pattern PATTERN_PARAMETER = Pattern.compile("\\w+\\s*:\\s*\\((.|\\s)+?\\)");
     private String encoding = "UTF-8";
 
     public WeiXinApi() {
@@ -88,7 +121,7 @@ public class WeiXinApi {
             InputStream inputStream = entity.getContent();
             String result = FileHelper.readInputStreamToString(inputStream, charset);
             EntityHelper.print(result);
-            LoginResultVo loginResultVo = objectMapper.readValue(result, LoginResultVo.class);
+            LoginResultVo loginResultVo = _mapper.get().readValue(result, LoginResultVo.class);
             EntityHelper.print(loginResultVo);
             String token = parseToken(loginResultVo);
             this.token = token;
@@ -167,11 +200,41 @@ public class WeiXinApi {
             InputStream inputStream = entity.getContent();
             String result = FileHelper.readInputStreamToString(inputStream, charset);
             EntityHelper.print(result);
+            Matcher matcher = PATTERN_CGI_DATA.matcher(result);// 查找cgiData
+            if(matcher.find()){
+                String cgiData = matcher.group();
+                EntityHelper.print(cgiData);
+
+                ContactsVo contactsVo = handleContacts(cgiData);
+                EntityHelper.print(contactsVo);
+
+            } else { // 如果返回的结果包括，则应该是登录错误
+
+            }
+
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private ContactsVo handleContacts(String cgiData) throws IOException {
+        cgiData = cgiData.replaceAll("wx.cgiData\\s*=", "")
+                .replaceAll(";", "")
+                .replaceAll("\\s*\\}\\s*\\)\\s*\\.\\w+\\s*", "")
+                .replaceAll("\\(\\{\\s*\\\"\\s*\\w+\\s*\\\"\\s*:\\s*", "")
+                .replaceAll("\\s*\\*\\s*\\w+\\s*(\\|\\|\\s*\\w+){0,1}", "");
+        Pattern pattern = Pattern.compile("(\\\"\\d\\\")|(\\'\\d\\')");
+        Matcher matcher = pattern.matcher(cgiData);
+        while (matcher.find()) {
+            String number = matcher.group();
+            number = number.replaceAll("\"", "").replaceAll("\'", "");
+            cgiData = matcher.replaceAll(number);
+        }
+        ContactsVo contactsVo = _mapper.get().readValue(cgiData, ContactsVo.class);
+        return contactsVo;
     }
 
     public static void main(String[] args) {
