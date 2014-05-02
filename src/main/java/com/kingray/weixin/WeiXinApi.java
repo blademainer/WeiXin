@@ -334,12 +334,12 @@ public class WeiXinApi {
         Collection<ContactVo> contactVos = api.getAllContacts();
         EntityHelper.print(contactVos);
 
-        int i = 10;
+        int i = 100;
         for (int i1 = 0; i1 < i; i1++) {
 
             SendMessageVo sendMessageVo = SendMessageVo.buildBaseSendMessageVo();
-            sendMessageVo.setTofakeid(390155360);
-            sendMessageVo.setContent("发送消息测试");
+            sendMessageVo.setTofakeid(2446328183L);
+            sendMessageVo.setContent("自动登录发送消息测试");
             sendMessageVo.setToken(api.token);
             BaseResp resp = api.sendMessage(sendMessageVo);
             EntityHelper.print(resp);
