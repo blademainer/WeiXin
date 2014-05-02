@@ -1,0 +1,34 @@
+emote Address:101.226.68.61:443
+Request URL:https://mp.weixin.qq.com/cgi-bin/singlesend
+Request Method:POST
+Status Code:200 OK
+Request Headersview source
+Accept:application/json, text/javascript, */*; q=0.01
+Accept-Encoding:gzip,deflate,sdch
+Accept-Language:zh-CN,zh;q=0.8,en;q=0.6
+Connection:keep-alive
+Content-Length:129
+Content-Type:application/x-www-form-urlencoded; charset=UTF-8
+Cookie:Sun, 01 Jun 2014 12:40:07 GMT; qqmusic_uin=; qqmusic_key=; qqmusic_fromtag=; qz_gdt=hdou2uygaaahzmfoolzq; verifysession=h0193219a4f8a6e33291f2f5bb0156886d5ae01a1c82a62e6811c544a34bb7e1aa8e09ec152b6fbfa64; o_cookie=342764221; qm_username=346946073; qm_sid=9a0a9227141454446f1ae1e09aa39d75,qYmcxeHhGYVBMb2lkcGk5RkdjMkI0RS1FWlpBdnA4QmdHdmZ2T3JZWlVRTV8.; FTN5K=33d86f9b; pt2gguin=o0346946073; uin=o0346946073; skey=@p6KXEHabb; ptisp=ctc; RK=wJfml2dQSo; ptcz=fd8a68b88e590b2655fa643c97ced0e316491a30f4540928e635b0a2ec3ef639; pgv_info=ssid=s1901294116; pgv_pvid=2203572295; ts_uid=3742707850; data_bizuin=2398795194; data_ticket=AgSSgPFWPrEab4UHuLg/65qC; slave_user=gh_b1b4bc56a4ea; slave_sid=M2VuV0t0eG5mSV9jRjRZMXZOYkpDVGVwRU92Mng2OFZfRmV3R2txeklaZHQxRkRSbWl0Tm5Sb2tUQ3BsYkY0TU1pWlozQW5vNlVwOVhRb0JpZVFrUUNNNWJiNHVWMTE5RFhxc0RNS1JsWHZYR3d3aWpBaXRlbGNjSklDYnVIaWM=; bizuin=3097198628
+Host:mp.weixin.qq.com
+Origin:https://mp.weixin.qq.com
+Referer:https://mp.weixin.qq.com/cgi-bin/singlesendpage?t=message/send&action=index&tofakeid=390155360&token=378103717&lang=zh_CN
+User-Agent:Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1964.4 Safari/537.36
+X-Requested-With:XMLHttpRequest
+Form Dataview sourceview URL encoded
+type:1
+content:adf
+tofakeid:390155360
+imgcode:
+token:378103717
+lang:zh_CN
+random:0.3193176870699972
+f:json
+ajax:1
+t:ajax-response
+Response Headersview source
+Content-Length:38
+Content-Type:application/json; charset=UTF-8
+Set-Cookie:slave_user=gh_b1b4bc56a4ea; Path=/; Secure; HttpOnly
+Set-Cookie:slave_sid=M2VuV0t0eG5mSV9jRjRZMXZOYkpDVGVwRU92Mng2OFZfRmV3R2txeklaZHQxRkRSbWl0Tm5Sb2tUQ3BsYkY0TU1pWlozQW5vNlVwOVhRb0JpZVFrUUNNNWJiNHVWMTE5RFhxc0RNS1JsWHZYR3d3aWpBaXRlbGNjSklDYnVIaWM=; Path=/; Secure; HttpOnly
+Set-Cookie:bizuin=3097198628; Path=/; Secure; HttpOnly

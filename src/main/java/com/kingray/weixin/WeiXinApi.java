@@ -3,10 +3,7 @@ package com.kingray.weixin;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kingray.weixin.vo.ContactsVo;
-import com.kingray.weixin.vo.GetContactRequestVo;
-import com.kingray.weixin.vo.LoginResultVo;
-import com.kingray.weixin.vo.LoginVo;
+import com.kingray.weixin.vo.*;
 import com.xiongyingqi.util.EntityHelper;
 import com.xiongyingqi.util.FileHelper;
 import com.xiongyingqi.util.MD5Helper;
@@ -28,11 +25,13 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * 微信公众平台
  * Created by 瑛琪<a href="http://xiongyingqi.com">xiongyingqi.com</a> on 2014/5/1 0001.
  */
 public class WeiXinApi {
@@ -80,6 +79,11 @@ public class WeiXinApi {
     }
 
 
+    /**
+     * 登录微信公众平台
+     * @param loginVo
+     * @return
+     */
     public LoginResultVo doLogin(LoginVo loginVo) {
         try {
 
@@ -155,8 +159,31 @@ public class WeiXinApi {
         return null;
     }
 
+    /**
+     * 获取所有的联系人
+     *
+     * @return
+     */
+    public Collection<ContactVo> getAllContacts() {
+        Collection<ContactVo> allContacts = new ArrayList<ContactVo>();
+
+        GetContactRequestVo getContactRequestVo = new GetContactRequestVo("user/index", 20, 0, 0, token, "zh_CN");
+        ContactsVo contactsVo = getContacts(getContactRequestVo);
+        allContacts.addAll(contactsVo.getFriendsList());
+
+        int pageCount = contactsVo.getPageCount();
+        for (int i = 1; i < pageCount; i++) {
+            getContactRequestVo.setPageidx(i);
+            ContactsVo currentContactsVo = getContacts(getContactRequestVo);
+            allContacts.addAll(currentContactsVo.getFriendsList());
+        }
+        return allContacts;
+
+    }
+
 
     /**
+     * 获取分页的联系人列表
      * t:user/index
      * pagesize:10
      * pageidx:0
@@ -164,10 +191,10 @@ public class WeiXinApi {
      * token:1560285654
      * lang:zh_CN
      */
-    public void getContacts(GetContactRequestVo getContactRequestVo) {
+    public ContactsVo getContacts(GetContactRequestVo getContactRequestVo) {
         String url = "https://mp.weixin.qq.com/cgi-bin/contactmanage";
         String nameValues = BuildNameValuePairsHelper.buildObjectToGet(getContactRequestVo);
-        if(nameValues != null){
+        if (nameValues != null) {
             url += "?" + nameValues;
         }
         try {
@@ -183,7 +210,7 @@ public class WeiXinApi {
 
 
             HttpGet httpGet = new HttpGet(url);
-            httpGet.addHeader("Referer", "https://mp.weixin.qq.com/advanced/advanced?action=index&t=advanced/index&token=1560285654&lang=zh_CN");
+            httpGet.addHeader("Referer", "https://mp.weixin.qq.com/advanced/advanced?action=index&t=advanced/index&token=" + token + "&lang=zh_CN");
 //            HttpEntity requestEntity = new UrlEncodedFormEntity(BuildNameValuePairsHelper.build(getContactRequestVo), Charset.forName(encoding));
 //            httpGet.setEntity(requestEntity);
 
@@ -199,15 +226,12 @@ public class WeiXinApi {
             Charset charset = contentType.getCharset();
             InputStream inputStream = entity.getContent();
             String result = FileHelper.readInputStreamToString(inputStream, charset);
-            EntityHelper.print(result);
             Matcher matcher = PATTERN_CGI_DATA.matcher(result);// 查找cgiData
-            if(matcher.find()){
+            if (matcher.find()) {
                 String cgiData = matcher.group();
-                EntityHelper.print(cgiData);
 
                 ContactsVo contactsVo = handleContacts(cgiData);
-                EntityHelper.print(contactsVo);
-
+                return contactsVo;
             } else { // 如果返回的结果包括，则应该是登录错误
 
             }
@@ -218,6 +242,58 @@ public class WeiXinApi {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    /**
+     * 发送消息<br></br>消息中的tofakeid就是ContactVo中的id<br></br>
+     * https://mp.weixin.qq.com/cgi-bin/singlesend
+     * <p/>
+     * {"base_resp":{"ret":0,"err_msg":"ok"}}
+     */
+    public BaseResp sendMessage(SendMessageVo sendMessageVo) {
+        String url = "https://mp.weixin.qq.com/cgi-bin/singlesend";
+        sendMessageVo.setToken(token);
+        try {
+
+//            URL url = new URL(basePath);
+//            System.out.println(url.getPath());
+//            URI uri = new URI(loginUri);
+//            System.out.println(uri.getPath());
+
+
+//            URIBuilder uriBuilder = new URIBuilder().setPath(basePath + loginUri);
+//            EntityHelper.print(uriBuilder.build());
+
+
+            HttpPost httpPost = new HttpPost(url);
+            httpPost.addHeader("Referer", "https://mp.weixin.qq.com/cgi-bin/singlesendpage?t=message/send&action=index&tofakeid=" + sendMessageVo.getTofakeid() + "&token=" + token + "&lang=zh_CN");
+            HttpEntity requestEntity = new UrlEncodedFormEntity(BuildNameValuePairsHelper.build(sendMessageVo), Charset.forName(encoding));
+            httpPost.setEntity(requestEntity);
+
+
+            CloseableHttpResponse response = closeableHttpClient.execute(httpPost);
+
+//            for (Header header : headers) {
+//                EntityHelper.print(header);
+//            }
+            HttpEntity entity = response.getEntity();
+            ContentType contentType = ContentType.getOrDefault(entity);// 获取编码
+//            EntityHelper.print(contentType);
+            Charset charset = contentType.getCharset();
+            InputStream inputStream = entity.getContent();
+            String result = FileHelper.readInputStreamToString(inputStream, charset);
+            result = result.replaceAll("\\{\\s*(\\\"|\\')base_resp(\\\"|\\')\\s*\\:", "");
+            result = result.substring(0, result.lastIndexOf("}"));
+            ObjectMapper mapper = new ObjectMapper();
+            BaseResp baseResp = mapper.readValue(result, BaseResp.class);
+            return baseResp;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private ContactsVo handleContacts(String cgiData) throws IOException {
@@ -254,6 +330,20 @@ public class WeiXinApi {
          */
         GetContactRequestVo getContactRequestVo = new GetContactRequestVo("user/index", 10, 0, 0, api.token, "zh_CN");
         api.getContacts(getContactRequestVo);
+
+        Collection<ContactVo> contactVos = api.getAllContacts();
+        EntityHelper.print(contactVos);
+
+        int i = 10;
+        for (int i1 = 0; i1 < i; i1++) {
+
+            SendMessageVo sendMessageVo = SendMessageVo.buildBaseSendMessageVo();
+            sendMessageVo.setTofakeid(390155360);
+            sendMessageVo.setContent("发送消息测试");
+            sendMessageVo.setToken(api.token);
+            BaseResp resp = api.sendMessage(sendMessageVo);
+            EntityHelper.print(resp);
+        }
 
     }
 

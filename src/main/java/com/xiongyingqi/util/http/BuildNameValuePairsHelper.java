@@ -29,8 +29,10 @@ public class BuildNameValuePairsHelper {
             field.setAccessible(true);
             try {
                 Object value = field.get(object);
-                NameValuePair nameValuePair = new BasicNameValuePair(field.getName(), value.toString());
-                nameValuePairs.add(nameValuePair);
+                if (value != null) {
+                    NameValuePair nameValuePair = new BasicNameValuePair(field.getName(), value.toString());
+                    nameValuePairs.add(nameValuePair);
+                }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -54,7 +56,7 @@ public class BuildNameValuePairsHelper {
             stringBuilder.append(name);
             stringBuilder.append("=");
             stringBuilder.append(value);
-            if(iterator.hasNext()){
+            if (iterator.hasNext()) {
                 stringBuilder.append("&");
             }
         }

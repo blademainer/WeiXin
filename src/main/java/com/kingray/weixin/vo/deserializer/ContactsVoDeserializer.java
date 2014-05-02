@@ -59,11 +59,11 @@ public class ContactsVoDeserializer extends JsonDeserializer<ContactsVo> {
         JsonNode groupsListNode = node.get("groupsList");
         JsonNode friendsListNode = node.get("friendsList");
 
-        EntityHelper.print(isVerifyOnNode);
-        EntityHelper.print(pageIdxNode);
-        EntityHelper.print(pageCountNode);
-        EntityHelper.print(pageSizeNode);
-        EntityHelper.print(currentGroupIdNode);
+//        EntityHelper.print(isVerifyOnNode);
+//        EntityHelper.print(pageIdxNode);
+//        EntityHelper.print(pageCountNode);
+//        EntityHelper.print(pageSizeNode);
+//        EntityHelper.print(currentGroupIdNode);
 
         /**
          * {        isVerifyOn: "0"*1,
