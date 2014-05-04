@@ -1,6 +1,5 @@
 package com.kingray.weixin;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kingray.weixin.vo.*;
@@ -19,6 +18,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -79,12 +79,7 @@ public class WeiXinApi {
     }
 
 
-    /**
-     * 登录微信公众平台
-     * @param loginVo
-     * @return
-     */
-    public LoginResultVo doLogin(LoginVo loginVo) {
+    public LoginResultVo doLogin(LoginVo loginVo, String encryptPassword) {
         try {
 
 //            URL url = new URL(basePath);
@@ -96,7 +91,6 @@ public class WeiXinApi {
 //            URIBuilder uriBuilder = new URIBuilder().setPath(basePath + loginUri);
 //            EntityHelper.print(uriBuilder.build());
 
-            String encryptPassword = MD5Helper.encrypt(loginVo.getPassword());
 
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
             nameValuePairs.add(new BasicNameValuePair("username", loginVo.getUserName()));
@@ -136,6 +130,16 @@ public class WeiXinApi {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 登录微信公众平台
+     *
+     * @param loginVo
+     * @return
+     */
+    public LoginResultVo doLogin(LoginVo loginVo) {
+        return doLogin(loginVo, MD5Helper.encrypt(loginVo.getPassword()));
     }
 
 
@@ -313,12 +317,19 @@ public class WeiXinApi {
         return contactsVo;
     }
 
+    @Test
+    public void testLogin() {
+        WeiXinApi api = new WeiXinApi();
+        LoginVo loginVo = new LoginVo();
+        loginVo.setUserName("blademainer@gmail.com");
+        api.doLogin(loginVo, "98a827bac262116d72b8ac8bfd9205c0");
+    }
+
     public static void main(String[] args) {
         WeiXinApi api = new WeiXinApi();
         LoginVo loginVo = new LoginVo();
         loginVo.setUserName("blademainer@gmail.com");
-        loginVo.setPassword("xl606017");
-        api.doLogin(loginVo);
+        api.doLogin(loginVo, "98a827bac262116d72b8ac8bfd9205c0");
 
         /**
          * t:user/index
